@@ -1,0 +1,2 @@
+homebrew-lemp start
+>> Start the default homebrew LEMP stack

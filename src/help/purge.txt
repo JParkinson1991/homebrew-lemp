@@ -1,0 +1,2 @@
+homebrew-lemp purge
+>> Purge the homebrew LEMP stack
