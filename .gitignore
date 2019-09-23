@@ -1,0 +1,121 @@
+# ==============================================================================
+# Project Ignores
+#
+# - Place project specific ignore statements in this section.
+# ==============================================================================
+
+# ==============================================================================
+# Dreamweaver Ignores
+#
+# - Notes
+# - Configs
+# - Software files
+# ==============================================================================
+
+_notes
+_compareTemp
+configs/
+dwsync.xml
+dw_php_codehinting.config
+*.mno
+
+# ==============================================================================
+# Jetbrains IDE Ignores
+#
+# - User specific
+# - Sensitive or high-churn files
+# - Gradle
+# - Mongo explorer plugin
+# - File-based project form
+# - Plugin specific files
+# ==============================================================================
+
+.idea
+*.iws
+/out/
+/gen/
+.idea_modules/
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# ==============================================================================
+# MAC OS Ignores
+#
+# - System Files
+# - Thumbnails
+# - Files that might appear in the root of a volume
+# - Directories potentially created on remote AFP share
+# ==============================================================================
+
+*.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# ==============================================================================
+# Miscellaneous Ignores
+#
+# - Backup files
+# ==============================================================================
+
+*.bak
+
+# ==============================================================================
+# Sublime Text Ignores
+#
+# - Cache files
+# - Workspace files
+# - Project files
+# - Package control specific files
+# - Sublime-githum github token file
+# ==============================================================================
+
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+Package Control.last-run
+Package Control.ca-list
+Package Control.ca-bundle
+Package Control.system-ca-bundle
+Package Control.cache/
+Package Control.ca-certs/
+bh_unicode_properties.cache
+GitHub.sublime-settings
+
+# ==============================================================================
+# Windows OS Ignores
+#
+# - Image file caches
+# - Folder config files
+# - Recycle bin used on file shares
+# - Installer files
+# - Shortcuts
+# ==============================================================================
+
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+

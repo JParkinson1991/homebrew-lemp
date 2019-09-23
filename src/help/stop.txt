@@ -1,0 +1,2 @@
+homebrew-lemp stop
+>> Stop the homebrew LEMP stack
