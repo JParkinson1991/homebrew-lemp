@@ -136,6 +136,8 @@ brew install php
 
 # Install mysql
 brew install mysql@5.7
+sudo rm -f "/usr/local/etc/my.cnf"
+cp "$APP_ROOT/assets/mysql/my.cnf" "/usr/local/etc/my.cnf"
 /usr/local/opt/mysql@5.7/bin/mysql.server start
 /usr/local/opt/mysql@5.7/bin/mysql_secure_installation
 
