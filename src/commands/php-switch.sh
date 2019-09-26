@@ -49,6 +49,7 @@ if [ -x "$(command -v nginx)" ]; then
     sudo nginx -s reload
 fi
 
+# Source bash files
 BASH_SOURCE_FILES=(".bash_profile" ".bashrc")
 for file in "${BASH_SOURCE_FILES[@]}"; do
     if [[ -f "$HOME/$file" ]]; then
@@ -57,7 +58,7 @@ for file in "${BASH_SOURCE_FILES[@]}"; do
     fi
 done
 
-# Source zsh files using
+# Source zsh files
 if [[ -f "$HOME/.zshrc" ]]; then
     /bin/zsh -c "source $HOME/.zshrc"
 fi
