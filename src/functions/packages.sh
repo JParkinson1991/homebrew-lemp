@@ -18,16 +18,13 @@ function start_default(){
     /usr/local/opt/mysql@5.7/bin/mysql.server start
 }
 
-# Blindly unlinks all of the packages managed by homebrew lemp
-function unlink_all(){
-    brew unlink nginx-full
-    brew unlink dnsmasq
-    brew unlink php@5.6
-    brew unlink php@7.0
-    brew unlink php@7.1
-    brew unlink php@7.2
-    brew unlink php #7.3
-    brew unlink mysql@5.7
+# Stop all php services
+function stop_php(){
+    brew services stop php@5.6
+    brew services stop php@7.0
+    brew services stop php@7.1
+    brew services stop php@7.2
+    brew services stop php #7.3
 }
 
 # Blindly stops all of the services managed by homebrew lemp
@@ -36,14 +33,27 @@ function stop_all(){
 
     brew services stop denji/nginx/nginx-full
     sudo brew services stop dnsmasq
-    brew services stop php@5.6
-    brew services stop php@7.0
-    brew services stop php@7.1
-    brew services stop php@7.2
-    brew services stop php #7.3
+    stop_php
     brew services stop mysql@5.7
 
     killall -9 mysql
     killall -9 mysqld
     killall -9 mysqld_safe
+}
+
+# Unlink all php packages
+function unlink_php(){
+    brew unlink php@5.6
+    brew unlink php@7.0
+    brew unlink php@7.1
+    brew unlink php@7.2
+    brew unlink php #7.3
+}
+
+# Blindly unlinks all of the packages managed by homebrew lemp
+function unlink_all(){
+    brew unlink nginx-full
+    brew unlink dnsmasq
+    unlink_php
+    brew unlink mysql@5.7
 }
