@@ -111,8 +111,6 @@ fi
 # If the nginx brotli module is to be install ensure the brotli dependencies are met
 # shellcheck disable=SC2199
 if array_contains "--with-brotli-module" "${NGINX_OPTIONS[@]}"; then
-    echo "> Installing brotli"
-
     # Install brotli module first rather than dynamically if requested
     # This is required so the dependency on the brotli package can be fulfilled prior
     # to any dependency checks/configuration etc done during the nginx-full install
@@ -126,8 +124,6 @@ fi
 
 # If fancy index is to be used, install the theme
 if array_contains "--with-fancyindex-module" "${NGINX_OPTIONS[@]}"; then
-    echo "> Installing nginx index theme"
-
     # Clone the theme into the hbl lemp web dir
     git clone https://github.com/TheInsomniac/Nginx-Fancyindex-Theme.git $HBL_DIR/fancyindex;
 
@@ -184,7 +180,7 @@ sudo chmod u+s /usr/local/opt/nginx-full/bin/nginx
 # errors on start.
 mv /usr/local/etc/nginx/nginx.conf /usr/local/etc/nginx/nginx.conf.orig
 cp $APP_ROOT/assets/nginx/nginx.conf /usr/local/etc/nginx/nginx.conf
-sudo mkdir -p /var/log/nginx
+mkdir -p /usr/local/var/log/nginx
 mkdir -p /usr/local/etc/nginx/modules
 mkdir -p /usr/local/etc/nginx/servers
 
@@ -194,21 +190,20 @@ mkdir -p /usr/local/etc/nginx/servers
 for file in $APP_ROOT/assets/nginx/*/*.conf; do
     # Handle dynamic config files
     # If a file is dynamic it will be skipped unless added to the NGINX_DYNAMIC_CONFIG array
-    # Files that are to be added will have the '.dynamic' part of the filename removed
-    if [[ $file == *.dynamic.conf ]]; then
-        if array_contains $(basename $file) "${NGINX_DYNAMIC_CONFIG[@]}"; then
-            file="${file/.dynamic/}"
-        else
-            continue
-        fi
+    if [[ $file == *.dynamic.conf ]] && ! array_contains $(basename $file) "${NGINX_DYNAMIC_CONFIG[@]}"; then
+        continue
     fi
 
+    # Create the files directory if needed
     # shellcheck source=/dev/null
     if [[ ! -d "/usr/local/etc/nginx/$(basename "$(dirname "$file")")" ]]; then
         mkdir -p "/usr/local/etc/nginx/$(basename "$(dirname "$file")")"
     fi
+
+    # Substitute environment variables and create the install the config file
+    # Remove the .dynamic prefix from the filename (catch all for dynamic files)
     envsubst '${HOME},${LOCAL_DOMAIN},${WEB_ROOT_DIR}' < "$file" \
-        > "/usr/local/etc/nginx/$(basename "$(dirname "$file")")/$(basename $file)"
+        > "/usr/local/etc/nginx/$(basename "$(dirname "$file")")/$(basename ${file/.dynamic/})"
 done;
 
 # Install dnsmasq
