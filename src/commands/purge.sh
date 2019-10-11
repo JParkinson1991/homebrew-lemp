@@ -70,4 +70,4 @@ rm -f "$HOME/Library/LaunchAgents/homebrew.mxcl.nginx-full.plist";
 notice "Please review outputs above checking any errors/warnings"
 success "Purge complete"
 
-exit 0;
+exit 0

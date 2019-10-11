@@ -1,2 +1,5 @@
-homebrew-lemp start
+homebrew-lemp start [options]
 >> Start the default homebrew LEMP stack
+
+Options:
+    --help, -h ................... shows the help screen for this command

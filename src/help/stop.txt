@@ -1,2 +1,5 @@
-homebrew-lemp stop
+homebrew-lemp stop [options]
 >> Stop the homebrew LEMP stack
+
+Options:
+    --help, -h ................... shows the help screen for this command

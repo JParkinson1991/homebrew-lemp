@@ -1,2 +1,5 @@
-homebrew-lemp purge
+homebrew-lemp purge [options]
 >> Purge the homebrew LEMP stack
+
+Options:
+    --help, -h ................... shows the help screen for this command

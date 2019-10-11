@@ -67,5 +67,3 @@ notice "Showing PHP Version ..."
 php -v
 
 exit 0
-
-
