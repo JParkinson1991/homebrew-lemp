@@ -1,2 +1,5 @@
 homebrew-lemp init [options]
 >> Initialises the homebrew lemp stack
+
+Options:
+    --help, -h ................... shows the help screen for this command

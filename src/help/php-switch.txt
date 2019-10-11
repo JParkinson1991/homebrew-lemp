@@ -1,4 +1,8 @@
-homebrew-lemp php-switch <version>
+homebrew-lemp php-switch <version> [options]
 >> Switch the running PHP version
 
-Valid <version> values: 56 70 71 72 73
+Arguments:
+    <version> .................... Valid values: 56 70 71 72 73
+
+Options:
+    --help, -h ................... shows the help screen for this command
