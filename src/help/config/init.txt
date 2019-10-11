@@ -1,0 +1,6 @@
+homebrew-lemp config init [options]
+>> Initialises an editable configuration file
+
+Options:
+    -f ........................... force, overwrites previous configuration file
+    --help, -h ................... shows the help screen for this command

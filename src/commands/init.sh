@@ -2,13 +2,7 @@
 # Requires lots of functionality to be included to run stand alone.
 # Strongly recommended to run via the homebrew-lemp
 
-load_config
-notice "Loaded configuration"
-echo "> LOCAL_DOMAIN: $LOCAL_DOMAIN"
-echo "> WEB_ROOT_DIR: $WEB_ROOT_DIR"
-echo "> NGINX_OPTIONS: ${NGINX_OPTIONS_RAW[*]}"
-echo "> NGINX_OPTIONS_IGNORE: ${NGINX_OPTIONS_IGNORE[*]}"
-echo "> NGINX_OPTIONS (Computed): ${NGINX_OPTIONS[*]}"
+load_config -o
 echo "Note: nginx core modules (excluding ignored) will be automatically included"
 while true; do
     read -n 1 -p "Continue with the above configuration? [y/N] " yn
@@ -194,4 +188,4 @@ notice "Web root available at: http://localhost"
 notice "PHP Info available at: http://info.$LOCAL_DOMAIN"
 notice "DB Admin available at: http://phpmyadmin.$LOCAL_DOMAIN"
 
-exit 0;
+exit 0

@@ -1,0 +1,5 @@
+homebrew-lemp config load [options]
+>> Loads and outputs the current configuration values
+
+Options:
+    --help, -h ................... shows the help screen for this command
