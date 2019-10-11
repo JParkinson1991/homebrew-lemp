@@ -28,9 +28,6 @@ done
 
 # If no commands received show help
 if [[ $# == 0 ]]; then
-    error "Missing Command"
-    notice "Showing default help screen"
-    echo ""
     cat "$APP_ROOT/src/help/homebrew-lemp.txt"
     exit 1
 fi
