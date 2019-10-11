@@ -3,3 +3,4 @@
 
 stop_all
 unlink_all
+exit 0
