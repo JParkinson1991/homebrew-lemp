@@ -185,6 +185,7 @@ for file in $APP_ROOT/assets/nginx/*/*.conf; do
     # Handle dynamic config files
     # If a file is dynamic it will be skipped unless added to the NGINX_DYNAMIC_CONFIG array
     if [[ $file == *.dynamic.conf ]] && ! array_contains $(basename $file) "${NGINX_DYNAMIC_CONFIG[@]}"; then
+    if [[ $file == *.dynamic.confd ]] && ! array_contains $(basename $file) "${NGINX_DYNAMIC_CONFIG[@]}"; then
         continue
     fi
 
@@ -204,16 +205,8 @@ done;
 notice "Installing dnsmasq ..."
 brew install dnsmasq
 
-rm -f "/usr/local/etc/dnsmasq.conf"
-echo "address=/.$LOCAL_DOMAIN/127.0.0.1" > "/usr/local/etc/dnsmasq.conf"
-
-# Create the dns resolvers to use with dnsmasq
-sudo mkdir -p /etc/resolver
-sudo rm -f /etc/resolver/$LOCAL_DOMAIN
-sudo tee /etc/resolver/$LOCAL_DOMAIN > /dev/null <<EOF
-nameserver 127.0.0.1
-domain $LOCAL_DOMAIN
-EOF
+# Add the localhost mask
+dnsmasq_add "localhost"
 
 # Flush the dns cache so it dnsmasq changes are updated
 sudo dscacheutil -flushcache
