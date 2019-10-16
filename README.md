@@ -91,6 +91,15 @@ $ homebrew-lemp config init
 # Load and output the current configuration values
 $ homebrew-lemp config load
 
+# Add a dnsmasq record
+$ homberew-lemp dnsmasq add <domain> <ip>
+
+# Delete a dnsmasq record
+$ homebrew-lemp dnsmasq delete <domain>
+
+# Reload dnsmasq and flush local dns cache
+$ homebrew-lemp dnsmasq reload
+
 # View cli help
 $ homebrew-lemp help
 $ homebrew-lemp [command] -h
