@@ -204,14 +204,8 @@ done;
 notice "Installing dnsmasq ..."
 brew install dnsmasq
 
-# Configure dnsmasq, take a copy of the original file if it does not already exist
-# Remove the default config file and replace via echo
-if [[ ! -f  "/usr/local/etc/dnsmasq.conf.orig" ]]; then
-    cp "/usr/local/etc/dnsmasq.conf" "/usr/local/etc/dnsmasq.conf.orig"
-fi
 rm -f "/usr/local/etc/dnsmasq.conf"
-cp "/usr/local/etc/dnsmasq.conf.orig" "/usr/local/etc/dnsmasq.conf"
-echo "address=/.$LOCAL_DOMAIN/127.0.0.1" >> "/usr/local/etc/dnsmasq.conf"
+echo "address=/.$LOCAL_DOMAIN/127.0.0.1" > "/usr/local/etc/dnsmasq.conf"
 
 # Create the dns resolvers to use with dnsmasq
 sudo mkdir -p /etc/resolver
