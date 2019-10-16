@@ -1,0 +1,5 @@
+homebrew-lemp dnsmasq delete <domain> [options]
+>> Delete a dnsmasq record for the given domain
+
+Options:
+    --help, -h ................... shows the help screen for this command

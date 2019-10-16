@@ -1,0 +1,6 @@
+homebrew-lemp dnsmasq add <domain> [ip] [options]
+>> Adds a dnsmasq record for the given domain.
+   If no ip address is provided 127.0.0.1 will be used.
+
+Options:
+    --help, -h ................... shows the help screen for this command

@@ -1,0 +1,5 @@
+homebrew-lemp dnsmasq reload [options]
+>> Reload the dnsmasq service and flush the dns cache
+
+Options:
+    --help, -h ................... shows the help screen for this command

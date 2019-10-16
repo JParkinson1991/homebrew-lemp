@@ -3,6 +3,9 @@ homebrew-lemp <command> [options]
 Available Commands:
     config init .................. initialises an editable configuration file
     config load .................. load and view current configuration values
+    dnsmasq add <domain> [ip] .... adds a dnsmasq record
+    dnsmasq delete <domain> ...... deletes a dnsmasq record
+    dnsmasq reload ............... reloads dnsmasq and flushes dns cache
     init ......................... initialises the LEMP stack
     php-switch <version> ......... switch the running PHP version
     purge ........................ purge the homebrew LEMP stack
