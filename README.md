@@ -66,7 +66,7 @@ Values in this configuration file can be overwritten creating a configuration fi
 
 To view detailed information on the configuration available view the default configuration file in this repository.
 
-## Usage
+##  Commands
 
 ```
 # Initialise the homebrew lemp stack
@@ -84,6 +84,21 @@ $ homebrew-lemp stop
 
 # Delete the stack
 $ homebrew-lemp purge 
+
+# Initialise a local configuration file
+$ homebrew-lemp config init
+
+# Load and output the current configuration values
+$ homebrew-lemp config load
+
+# Add a dnsmasq record
+$ homberew-lemp dnsmasq add <domain> <ip>
+
+# Delete a dnsmasq record
+$ homebrew-lemp dnsmasq delete <domain>
+
+# Reload dnsmasq and flush local dns cache
+$ homebrew-lemp dnsmasq reload
 
 # View cli help
 $ homebrew-lemp help
