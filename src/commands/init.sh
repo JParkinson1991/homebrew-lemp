@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Requires lots of functionality to be included to run stand alone.
-# Strongly recommended to run via the homebrew-lemp
+# Strongly recommended to run via the homebrew-lemp entrypoint
 
 # # # # # # # # # # #
 # CONFIGURATION INIT
@@ -17,7 +17,7 @@ while true; do
     esac
 done
 
-# Export the config values that may exist in tokenized config giles
+# Export the config values that may exist in tokenized config files
 # Example, envsubst used in nginx conf files
 export LOCAL_DOMAIN=$LOCAL_DOMAIN
 export WEB_ROOT_DIR=$WEB_ROOT_DIR
@@ -185,7 +185,6 @@ for file in $APP_ROOT/assets/nginx/*/*.conf; do
     # Handle dynamic config files
     # If a file is dynamic it will be skipped unless added to the NGINX_DYNAMIC_CONFIG array
     if [[ $file == *.dynamic.conf ]] && ! array_contains $(basename $file) "${NGINX_DYNAMIC_CONFIG[@]}"; then
-    if [[ $file == *.dynamic.confd ]] && ! array_contains $(basename $file) "${NGINX_DYNAMIC_CONFIG[@]}"; then
         continue
     fi
 
