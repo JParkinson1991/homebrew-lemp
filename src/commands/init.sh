@@ -2,6 +2,17 @@
 # Requires lots of functionality to be included to run stand alone.
 # Strongly recommended to run via the homebrew-lemp entrypoint
 
+# # # # # # # # # # #
+# DROPOUT CONDITIONS
+# # #
+
+# Ensure standard nginx package not installed before continuing
+if package_installed nginx; then
+    error "nginx installation detected"
+    echo "> Please remove before using this package"
+    echo "> brew uninstall nginx"
+    exit 1
+fi
 
 # # # # # # # # # # #
 # CONFIGURATION INIT

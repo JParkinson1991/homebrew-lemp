@@ -30,6 +30,8 @@ A Mac.
 
 ## Installing
 
+_Ensure so no previous web servers are installed before using this package_
+
 The terminal code examples below are denoted by:
 - `#` Comment, no need to run
 - `$` Command prompt, should be executed
