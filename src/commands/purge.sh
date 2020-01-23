@@ -35,6 +35,7 @@ brew untap exolnet/homebrew-deprecated
 # Delete core php versions
 brew rmtree php@7.1
 brew rmtree php@7.2
+brew rmtree php@7.3
 brew rmtree php
 
 # Delete mysql
