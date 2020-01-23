@@ -24,7 +24,8 @@ function stop_php(){
     brew services stop php@7.0
     brew services stop php@7.1
     brew services stop php@7.2
-    brew services stop php #7.3
+    brew services stop php@7.3
+    brew services stop php #7.4
 }
 
 # Blindly stops all of the services managed by homebrew lemp
@@ -47,6 +48,7 @@ function unlink_php(){
     brew unlink php@7.0
     brew unlink php@7.1
     brew unlink php@7.2
+    brew unlink php@7.3
     brew unlink php #7.3
 }
 

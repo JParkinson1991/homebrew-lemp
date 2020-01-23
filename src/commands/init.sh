@@ -2,6 +2,7 @@
 # Requires lots of functionality to be included to run stand alone.
 # Strongly recommended to run via the homebrew-lemp entrypoint
 
+
 # # # # # # # # # # #
 # CONFIGURATION INIT
 # # #
@@ -225,6 +226,8 @@ brew install php@7.1
 brew unlink php@7.1
 brew install php@7.2
 brew unlink php@7.2
+brew install php@7.3
+brew unlink php@7.3
 brew install php
 
 # Install the info site
@@ -232,18 +235,22 @@ mkdir -p "$HBL_DIR/phpinfo"
 cp "$APP_ROOT/assets/php/info.php" "$HBL_DIR/phpinfo/info.php"
 
 # Install mysql
-brew install mysql@5.7
-sudo rm -f "/usr/local/etc/my.cnf"
-cp "$APP_ROOT/assets/mysql/my.cnf" "/usr/local/etc/my.cnf"
-/usr/local/opt/mysql@5.7/bin/mysql.server start
-/usr/local/opt/mysql@5.7/bin/mysql_secure_installation
+if ! package_installed mysql@5.7; then
+    brew install mysql@5.7
+    sudo rm -f "/usr/local/etc/my.cnf"
+    cp "$APP_ROOT/assets/mysql/my.cnf" "/usr/local/etc/my.cnf"
+    /usr/local/opt/mysql@5.7/bin/mysql.server start
+    /usr/local/opt/mysql@5.7/bin/mysql_secure_installation
+fi
 
 # Install phpmyadmin
-brew install phpmyadmin
-cp /usr/local/etc/phpmyadmin.config.inc.php /usr/local/etc/phpmyadmin.config.inc.php.orig
-blowfish_secret=$(cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-sed -e "s|\$cfg\['blowfish_secret'\] = ''|\$cfg\['blowfish_secret'\] = '$blowfish_secret'|g" \
+if ! package_installed phpmyadmin; then
+    brew install phpmyadmin
+    cp /usr/local/etc/phpmyadmin.config.inc.php /usr/local/etc/phpmyadmin.config.inc.php.orig
+    blowfish_secret=$(cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+    sed -e "s|\$cfg\['blowfish_secret'\] = ''|\$cfg\['blowfish_secret'\] = '$blowfish_secret'|g" \
     /usr/local/etc/phpmyadmin.config.inc.php.orig > /usr/local/etc/phpmyadmin.config.inc.php
+fi
 
 # # # # # # # # # # #
 # POST INSTALLATION OUTPUTS
