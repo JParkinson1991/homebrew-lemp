@@ -4,7 +4,7 @@
 
 # Defines the allowed php values
 # Format [MAJOR][MINOR]
-PHP_VERSIONS=(56 70 71 72 73)
+PHP_VERSIONS=(56 70 71 72 73 74)
 
 # Ensure a php version passed
 if [[ $# -eq 0 ]]; then
@@ -20,28 +20,24 @@ if ! array_contains $1 "${PHP_VERSIONS[@]}"; then
     exit 1
 fi
 
+# Determine homebrew package name from version
+if [ $1 == 74 ]; then
+    # Latest version always called php
+    PHP_PACKAGE=php
+else
+    # Split argument and put dot in between numbers
+    # 73 = php@7.3
+    PHP_PACKAGE="php@${1:0:1}.${1:1:1}"
+fi
+
 # Wrap stop commands into function for simplicity
 notice "Stopping PHP ..."
 stop_php &> /dev/null
 unlink_php &> /dev/null
 
 notice "Starting PHP $1 ..."
-if [[ $1 == "56" ]]; then
-    brew services start php@5.6 &> /dev/null
-    brew link --force --overwrite php@5.6 &> /dev/null
-elif [[ $1 == "70" ]]; then
-    brew services start php@7.0 &> /dev/null
-    brew link --force --overwrite php@7.0 &> /dev/null
-elif [[ $1 == "71" ]]; then
-    brew services start php@7.1 &> /dev/null
-    brew link --force --overwrite php@7.1 &> /dev/null
-elif [[ $1 == "72" ]]; then
-    brew services start php@7.2 &> /dev/null
-    brew link --force --overwrite php@7.2 &> /dev/null
-elif [[ $1 == '73' ]]; then
-    brew services start php &> /dev/null
-    brew link --force --overwrite php &> /dev/null
-fi
+brew services start $PHP_PACKAGE &> /dev/null
+brew link --force --overwrite $PHP_PACKAGE &> /dev/null
 
 # If nginx is running, reload it
 if [ -x "$(command -v nginx)" ]; then
