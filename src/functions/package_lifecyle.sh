@@ -31,6 +31,7 @@ function stop_php(){
 # Blindly stops all of the services managed by homebrew lemp
 function stop_all(){
     /usr/local/opt/mysql@5.7/bin/mysql.server stop
+    nginx -s stop
 
     brew services stop denji/nginx/nginx-full
     sudo brew services stop dnsmasq
