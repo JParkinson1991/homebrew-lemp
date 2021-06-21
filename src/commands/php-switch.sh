@@ -4,7 +4,7 @@
 
 # Defines the allowed php values
 # Format [MAJOR][MINOR]
-PHP_VERSIONS=(56 70 71 72 73 74)
+PHP_VERSIONS=(56 70 71 72 73 74 80)
 
 # Ensure a php version passed
 if [[ $# -eq 0 ]]; then
@@ -20,15 +20,11 @@ if ! array_contains $1 "${PHP_VERSIONS[@]}"; then
     exit 1
 fi
 
-# Determine homebrew package name from version
-if [ $1 == 74 ]; then
-    # Latest version always called php
-    PHP_PACKAGE=php
-else
-    # Split argument and put dot in between numbers
-    # 73 = php@7.3
-    PHP_PACKAGE="php@${1:0:1}.${1:1:1}"
-fi
+# Split argument and put dot in between numbers
+# 73 = php@7.3
+# 80 = php@8.0
+# etc etc
+PHP_PACKAGE="php@${1:0:1}.${1:1:1}"
 
 # Wrap stop commands into function for simplicity
 notice "Stopping PHP ..."

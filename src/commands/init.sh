@@ -111,7 +111,7 @@ echo "> Checking external dependencies"
 # xquartz is met.
 # shellcheck disable=SC2199
 if array_contains "--with-imlib2" "${NGINX_OPTIONS[@]}"; then
-    brew cask list xquartz || brew cask install xquartz --verbose;
+    brew list --cask xquartz || brew install --cask xquartz --verbose;
 fi
 
 # If the nginx brotli module is to be install ensure the brotli dependencies are met
@@ -207,7 +207,7 @@ for file in $APP_ROOT/assets/nginx/*/*.conf; do
     fi
 
     # Substitute environment variables and create the install the config file
-    # Remove the .dynamic prefix from the filename (catch all for dynamic files)
+    # Remove the .dynamic prefix fr§om the filename (catch all for dynamic files)
     envsubst '${HOME},${LOCAL_DOMAIN},${WEB_ROOT_DIR}' < "$file" \
         > "/usr/local/etc/nginx/$(basename "$(dirname "$file")")/$(basename ${file/.dynamic/})"
 done;
@@ -228,18 +228,21 @@ if [[ -f /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macO
 fi
 
 # Install php versions
-brew tap exolnet/homebrew-deprecated
-brew install --build-from-source https://raw.githubusercontent.com/JParkinson1991/homebrew-deprecated/79d817a7ef794234d5276df0487a9d037b7b7bba/Formula/php@5.6.rb --with-openssl-1.1-patch
+brew tap shivammathur/php
+brew install shivammathur/php/php@5.6 --build-from-source
 brew unlink php@5.6
-brew install php@7.0 --build-from-source
+brew install shivammathur/php/php@7.0 --build-from-source
 brew unlink php@7.0
-brew install php@7.1 --build-from-source
+brew install shivammathur/php/php@7.1 --build-from-source
 brew unlink php@7.1
-brew install php@7.2 --build-from-source
+brew install shivammathur/php/php@7.2 --build-from-source
 brew unlink php@7.2
-brew install php@7.3 --build-from-source
+brew install shivammathur/php/php@7.3 --build-from-source
 brew unlink php@7.3
-brew install php --build-from-source
+brew install shivammathur/php/php@7.4 --build-from-source
+brew unlink php@7.4
+brew install shivammathur/php/php@8.0 --build-from-source
+brew unlink php@8.0
 
 # Install the info site
 mkdir -p "$HBL_DIR/phpinfo"
@@ -254,15 +257,6 @@ if ! package_installed mysql@5.7; then
     /usr/local/opt/mysql@5.7/bin/mysql_secure_installation
 fi
 
-# Install phpmyadmin
-if ! package_installed phpmyadmin; then
-    brew install phpmyadmin
-    cp /usr/local/etc/phpmyadmin.config.inc.php /usr/local/etc/phpmyadmin.config.inc.php.orig
-    blowfish_secret=$(cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-    sed -e "s|\$cfg\['blowfish_secret'\] = ''|\$cfg\['blowfish_secret'\] = '$blowfish_secret'|g" \
-    /usr/local/etc/phpmyadmin.config.inc.php.orig > /usr/local/etc/phpmyadmin.config.inc.php
-fi
-
 # # # # # # # # # # #
 # POST INSTALLATION OUTPUTS
 # # #
@@ -274,6 +268,5 @@ start_default
 success "Homebrew lemp initialised"
 notice "Web root available at: http://localhost"
 notice "PHP Info available at: http://info.$LOCAL_DOMAIN"
-notice "DB Admin available at: http://phpmyadmin.$LOCAL_DOMAIN"
 
 exit 0

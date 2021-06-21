@@ -20,7 +20,7 @@ rm -rf $WEB_ROOT_DIR/.homebrew-lemp
 # Delete nginx full and dependencies
 brew rmtree nginx-full
 brew untap denji/nginx
-brew cask uninstall xquartz
+brew uninstall --cask xquartz
 
 # Delete dnsmasq and custom files
 brew rmtree dnsmasq
@@ -30,13 +30,12 @@ sudo rm -rf /usr/local/Cellar/dnsmasqyy
 # Delete homebrew-deprecate php versions
 brew rmtree php@5.6
 brew rmtree php@7.0
-brew untap exolnet/homebrew-deprecated
-
-# Delete core php versions
 brew rmtree php@7.1
 brew rmtree php@7.2
 brew rmtree php@7.3
-brew rmtree php
+brew rmtree php@7.4
+brew rmtree php@8.0
+brew untap shivammathur/php
 
 # Delete mysql
 brew rmtree mysql@5.7
@@ -52,9 +51,6 @@ sudo rm -rf /Library/Receipts/mysql*
 sudo rm -rf /Library/Receipts/MySQL*
 sudo rm -rf /private/var/db/receipts/*mysql*
 
-# Delete phpmyadmin
-brew rmtree phpmyadmin
-
 # Remove rm tree if not previously installed
 if [[ $HAS_RMTREE -ne 0 ]]; then
     brew untap beeftornado/rmtree
@@ -67,6 +63,8 @@ sudo brew services cleanup
 # Catch alls
 notice "Deleting homebrew.mxcl.nginx-full.plist"
 rm -f "$HOME/Library/LaunchAgents/homebrew.mxcl.nginx-full.plist";
+
+# todo: remove HBL dir
 
 notice "Please review outputs above checking any errors/warnings"
 success "Purge complete"
