@@ -2,16 +2,19 @@
 # Requires lots of functionality to be included to run stand alone.
 # Strongly recommended to run via the homebrew-lemp
 
+# Load package config
+load_config
+
 # Stop and unlink all managed packages/services
 stop_all
 unlink_all
 
 # Tap the rmtree package as needed
-if ! brew list rmtree; then
-    HAS_RMTREE=1
-    brew tap beeftornado/rmtree
+if brew rmtree -h > /dev/null 2>&1; then
+    untapRmtree=false
 else
-    HAS_RMTREE=0
+    brew tap beeftornado/rmtree
+    untapRmtree=true
 fi
 
 # Delete the homebrew-lemp folder
@@ -52,7 +55,7 @@ sudo rm -rf /Library/Receipts/MySQL*
 sudo rm -rf /private/var/db/receipts/*mysql*
 
 # Remove rm tree if not previously installed
-if [[ $HAS_RMTREE -ne 0 ]]; then
+if [[ "$untapRmtree" = true ]]; then
     brew untap beeftornado/rmtree
 fi
 
@@ -63,8 +66,6 @@ sudo brew services cleanup
 # Catch alls
 notice "Deleting homebrew.mxcl.nginx-full.plist"
 rm -f "$HOME/Library/LaunchAgents/homebrew.mxcl.nginx-full.plist";
-
-# todo: remove HBL dir
 
 notice "Please review outputs above checking any errors/warnings"
 success "Purge complete"
