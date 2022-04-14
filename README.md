@@ -19,7 +19,7 @@ What this package will install/configure/setup:
             - no more editing /etc/hosts
             - local domain configuration
     - php
-        - Versions: `5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0`
+        - Versions: `5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1`
     - mysql
         - Version: `5.7`
 
