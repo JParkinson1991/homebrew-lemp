@@ -2,16 +2,19 @@
 # Requires lots of functionality to be included to run stand alone.
 # Strongly recommended to run via the homebrew-lemp
 
+# Load package config
+load_config
+
 # Stop and unlink all managed packages/services
 stop_all
 unlink_all
 
 # Tap the rmtree package as needed
-if ! brew list rmtree; then
-    HAS_RMTREE=1
-    brew tap beeftornado/rmtree
+if brew rmtree -h > /dev/null 2>&1; then
+    untapRmtree=false
 else
-    HAS_RMTREE=0
+    brew tap beeftornado/rmtree
+    untapRmtree=true
 fi
 
 # Delete the homebrew-lemp folder
@@ -20,7 +23,7 @@ rm -rf $WEB_ROOT_DIR/.homebrew-lemp
 # Delete nginx full and dependencies
 brew rmtree nginx-full
 brew untap denji/nginx
-brew cask uninstall xquartz
+brew uninstall --cask xquartz
 
 # Delete dnsmasq and custom files
 brew rmtree dnsmasq
@@ -30,13 +33,13 @@ sudo rm -rf /usr/local/Cellar/dnsmasqyy
 # Delete homebrew-deprecate php versions
 brew rmtree php@5.6
 brew rmtree php@7.0
-brew untap exolnet/homebrew-deprecated
-
-# Delete core php versions
 brew rmtree php@7.1
 brew rmtree php@7.2
 brew rmtree php@7.3
-brew rmtree php
+brew rmtree php@7.4
+brew rmtree php@8.0
+brew rmtree php@8.1
+brew untap shivammathur/php
 
 # Delete mysql
 brew rmtree mysql@5.7
@@ -52,11 +55,8 @@ sudo rm -rf /Library/Receipts/mysql*
 sudo rm -rf /Library/Receipts/MySQL*
 sudo rm -rf /private/var/db/receipts/*mysql*
 
-# Delete phpmyadmin
-brew rmtree phpmyadmin
-
 # Remove rm tree if not previously installed
-if [[ $HAS_RMTREE -ne 0 ]]; then
+if [[ "$untapRmtree" = true ]]; then
     brew untap beeftornado/rmtree
 fi
 

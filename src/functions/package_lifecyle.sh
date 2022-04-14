@@ -6,13 +6,13 @@ function start_default(){
     unlink_all &> /dev/null
 
     brew link --force --overwrite nginx-full
-    brew link --force --overwrite php
+    brew link --force --overwrite php@8.1
     brew link --force --overwrite dnsmasq
     brew link --force --overwrite mysql@5.7
 
     brew services start nginx-full
     sudo brew services start dnsmasq
-    brew services start php
+    brew services start php@8.1
     brew services start mysql@5.7
 
     /usr/local/opt/mysql@5.7/bin/mysql.server start
@@ -25,7 +25,9 @@ function stop_php(){
     brew services stop php@7.1
     brew services stop php@7.2
     brew services stop php@7.3
-    brew services stop php #7.4
+    brew services stop php@7.4
+    brew services stop php@8.0
+    brew services stop php@8.1
 }
 
 # Blindly stops all of the services managed by homebrew lemp
@@ -50,7 +52,9 @@ function unlink_php(){
     brew unlink php@7.1
     brew unlink php@7.2
     brew unlink php@7.3
-    brew unlink php #7.3
+    brew unlink php@7.4
+    brew unlink php@8.0
+    brew unlink php@8.1
 }
 
 # Blindly unlinks all of the packages managed by homebrew lemp
