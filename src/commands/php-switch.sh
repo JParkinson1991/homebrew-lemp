@@ -4,7 +4,7 @@
 
 # Defines the allowed php values
 # Format [MAJOR][MINOR]
-PHP_VERSIONS=(56 70 71 72 73 74 80)
+PHP_VERSIONS=(56 70 71 72 73 74 80 81)
 
 # Ensure a php version passed
 if [[ $# -eq 0 ]]; then

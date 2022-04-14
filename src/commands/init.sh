@@ -243,6 +243,8 @@ brew install shivammathur/php/php@7.4 --build-from-source
 brew unlink php@7.4
 brew install shivammathur/php/php@8.0 --build-from-source
 brew unlink php@8.0
+brew install shivammathur/php/php@8.1 --build-from-source
+brew unlink php@8.1
 
 # Install the info site
 mkdir -p "$HBL_DIR/phpinfo"

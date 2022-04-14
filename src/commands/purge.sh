@@ -38,6 +38,7 @@ brew rmtree php@7.2
 brew rmtree php@7.3
 brew rmtree php@7.4
 brew rmtree php@8.0
+brew rmtree php@8.1
 brew untap shivammathur/php
 
 # Delete mysql
