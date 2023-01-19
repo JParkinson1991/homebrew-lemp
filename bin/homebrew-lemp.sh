@@ -8,6 +8,13 @@ fi
 ENTRY_PATH=$(dirname "$ENTRY_PATH")
 APP_ROOT=$ENTRY_PATH/..;
 
+# Check architecture
+if [[ $(uname -p) == 'arm' ]]; then
+    HBL_PATH_PREFIX=/opt/homebrew/
+else 
+    HBL_PATH_PREFIX=/usr/local/
+fi
+
 # Import all of the required helpers/utility scripts and functions.
 #
 # Import all these files when this entry point is accessed ensures all sub commands that are executed are fully
