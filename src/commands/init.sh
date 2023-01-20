@@ -121,8 +121,8 @@ if array_contains "--with-brotli-module" "${NGINX_OPTIONS[@]}"; then
     # This is required so the dependency on the brotli package can be fulfilled prior
     # to any dependency checks/configuration etc done during the nginx-full install
     brew install brotli-nginx-module
-    rm -rf /usr/local/share/brotli-nginx-module/deps/brotli
-    git clone https://github.com/google/brotli.git /usr/local/share/brotli-nginx-module/deps/brotli
+    rm -rf ${HBL_PATH_PREFIX}/share/brotli-nginx-module/deps/brotli
+    git clone https://github.com/google/brotli.git ${HBL_PATH_PREFIX}/share/brotli-nginx-module/deps/brotli
 
     # Add the brotli file to dynamic configuration
     NGINX_DYNAMIC_CONFIG+=('brotli.dynamic.conf')
@@ -178,17 +178,17 @@ brew install nginx-full ${NGINX_OPTIONS[*]};
 echo "> Configuring ..."
 
 # Configure nginx to be run on port 80 without the need to sudo
-sudo chown root:wheel /usr/local/opt/nginx-full/bin/nginx
-sudo chmod u+s /usr/local/opt/nginx-full/bin/nginx
+sudo chown root:wheel ${HBL_PATH_PREFIX}/opt/nginx-full/bin/nginx
+sudo chmod u+s ${HBL_PATH_PREFIX}/opt/nginx-full/bin/nginx
 
 # Make a copy of the original installed nginx, and move the one provided by this module
 # into it's place. Create all of the directories this new file references to avoid any
 # errors on start.
-mv /usr/local/etc/nginx/nginx.conf /usr/local/etc/nginx/nginx.conf.orig
-cp $APP_ROOT/assets/nginx/nginx.conf /usr/local/etc/nginx/nginx.conf
-mkdir -p /usr/local/var/log/nginx
-mkdir -p /usr/local/etc/nginx/modules
-mkdir -p /usr/local/etc/nginx/servers
+mv ${HBL_PATH_PREFIX}/etc/nginx/nginx.conf ${HBL_PATH_PREFIX}/etc/nginx/nginx.conf.orig
+cp $APP_ROOT/assets/nginx/nginx.conf ${HBL_PATH_PREFIX}/etc/nginx/nginx.conf
+mkdir -p ${HBL_PATH_PREFIX}/var/log/nginx
+mkdir -p ${HBL_PATH_PREFIX}/etc/nginx/modules
+mkdir -p ${HBL_PATH_PREFIX}/etc/nginx/servers
 
 # Process all of the nginx configuration assets provided by this package
 # Each configuration file is processed, environment variables are substituted for actual
@@ -202,14 +202,14 @@ for file in $APP_ROOT/assets/nginx/*/*.conf; do
 
     # Create the files directory if needed
     # shellcheck source=/dev/null
-    if [[ ! -d "/usr/local/etc/nginx/$(basename "$(dirname "$file")")" ]]; then
-        mkdir -p "/usr/local/etc/nginx/$(basename "$(dirname "$file")")"
+    if [[ ! -d "${HBL_PATH_PREFIX}/etc/nginx/$(basename "$(dirname "$file")")" ]]; then
+        mkdir -p "${HBL_PATH_PREFIX}/etc/nginx/$(basename "$(dirname "$file")")"
     fi
 
     # Substitute environment variables and create the install the config file
     # Remove the .dynamic prefix fr§om the filename (catch all for dynamic files)
     envsubst '${HOME},${LOCAL_DOMAIN},${WEB_ROOT_DIR}' < "$file" \
-        > "/usr/local/etc/nginx/$(basename "$(dirname "$file")")/$(basename ${file/.dynamic/})"
+        > "${HBL_PATH_PREFIX}/etc/nginx/$(basename "$(dirname "$file")")/$(basename ${file/.dynamic/})"
 done;
 
 # Install dnsmasq
@@ -251,12 +251,12 @@ mkdir -p "$HBL_DIR/phpinfo"
 cp "$APP_ROOT/assets/php/info.php" "$HBL_DIR/phpinfo/info.php"
 
 # Install mysql
-if ! package_installed mysql@5.7; then
-    brew install mysql@5.7
-    sudo rm -f "/usr/local/etc/my.cnf"
-    cp "$APP_ROOT/assets/mysql/my.cnf" "/usr/local/etc/my.cnf"
-    /usr/local/opt/mysql@5.7/bin/mysql.server start
-    /usr/local/opt/mysql@5.7/bin/mysql_secure_installation
+if ! package_installed mysql${HBL_MYSQL_VERSION}; then
+    brew install mysql${HBL_MYSQL_VERSION}
+    sudo rm -f "${HBL_PATH_PREFIX}/etc/my.cnf"
+    cp "$APP_ROOT/assets/mysql/my.cnf" "${HBL_PATH_PREFIX}/etc/my.cnf"
+    ${HBL_PATH_PREFIX}/opt/mysql${HBL_MYSQL_VERSION}/bin/mysql.server start
+    ${HBL_PATH_PREFIX}/opt/mysql${HBL_MYSQL_VERSION}/bin/mysql_secure_installation
 fi
 
 # # # # # # # # # # #

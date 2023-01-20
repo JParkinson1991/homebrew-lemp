@@ -28,7 +28,7 @@ brew uninstall --cask xquartz
 # Delete dnsmasq and custom files
 brew rmtree dnsmasq
 sudo rm -f /etc/resolver/localhost
-sudo rm -rf /usr/local/Cellar/dnsmasqyy
+sudo rm -rf ${HBL_PATH_PREFIX}Cellar/dnsmasqyy
 
 # Delete homebrew-deprecate php versions
 brew rmtree php@5.6
@@ -42,10 +42,10 @@ brew rmtree php@8.1
 brew untap shivammathur/php
 
 # Delete mysql
-brew rmtree mysql@5.7
-sudo rm /usr/local/mysql
-sudo rm -rf /usr/local/var/mysql
-sudo rm -rf /usr/local/mysql*
+brew rmtree mysql${HBL_MYSQL_VERSION}
+sudo rm ${HBL_PATH_PREFIX}mysql
+sudo rm -rf ${HBL_PATH_PREFIX}var/mysql
+sudo rm -rf ${HBL_PATH_PREFIX}mysql*
 sudo rm ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
 sudo rm -rf /Library/StartupItems/MySQLCOM
 sudo rm -rf /Library/PreferencePanes/My*
