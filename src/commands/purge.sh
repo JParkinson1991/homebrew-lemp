@@ -42,7 +42,7 @@ brew rmtree php@8.1
 brew untap shivammathur/php
 
 # Delete mysql
-brew rmtree mysql@5.7
+brew rmtree mysql${HBL_MYSQL_VERSION}
 sudo rm ${HBL_PATH_PREFIX}mysql
 sudo rm -rf ${HBL_PATH_PREFIX}var/mysql
 sudo rm -rf ${HBL_PATH_PREFIX}mysql*

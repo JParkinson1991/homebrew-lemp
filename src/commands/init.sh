@@ -251,12 +251,12 @@ mkdir -p "$HBL_DIR/phpinfo"
 cp "$APP_ROOT/assets/php/info.php" "$HBL_DIR/phpinfo/info.php"
 
 # Install mysql
-if ! package_installed mysql@5.7; then
-    brew install mysql@5.7
+if ! package_installed mysql${HBL_MYSQL_VERSION}; then
+    brew install mysql${HBL_MYSQL_VERSION}
     sudo rm -f "${HBL_PATH_PREFIX}/etc/my.cnf"
     cp "$APP_ROOT/assets/mysql/my.cnf" "${HBL_PATH_PREFIX}/etc/my.cnf"
-    ${HBL_PATH_PREFIX}/opt/mysql@5.7/bin/mysql.server start
-    ${HBL_PATH_PREFIX}/opt/mysql@5.7/bin/mysql_secure_installation
+    ${HBL_PATH_PREFIX}/opt/mysql${HBL_MYSQL_VERSION}/bin/mysql.server start
+    ${HBL_PATH_PREFIX}/opt/mysql${HBL_MYSQL_VERSION}/bin/mysql_secure_installation
 fi
 
 # # # # # # # # # # #

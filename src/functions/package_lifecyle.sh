@@ -8,14 +8,14 @@ function start_default(){
     brew link --force --overwrite nginx-full
     brew link --force --overwrite php@8.1
     brew link --force --overwrite dnsmasq
-    brew link --force --overwrite mysql@5.7
+    brew link --force --overwrite mysql${HBL_MYSQL_VERSION}
 
     brew services start nginx-full
     sudo brew services start dnsmasq
     brew services start php@8.1
-    brew services start mysql@5.7
+    brew services start mysql${HBL_MYSQL_VERSION}
 
-    ${HBL_PATH_PREFIX}opt/mysql@5.7/bin/mysql.server start
+    ${HBL_PATH_PREFIX}opt/mysql${HBL_MYSQL_VERSION}/bin/mysql.server start
 }
 
 # Stop all php services
@@ -32,13 +32,13 @@ function stop_php(){
 
 # Blindly stops all of the services managed by homebrew lemp
 function stop_all(){
-    ${HBL_PATH_PREFIX}opt/mysql@5.7/bin/mysql.server stop
+    ${HBL_PATH_PREFIX}opt/mysql${HBL_MYSQL_VERSION}/bin/mysql.server stop
     nginx -s stop
 
     brew services stop denji/nginx/nginx-full
     sudo brew services stop dnsmasq
     stop_php
-    brew services stop mysql@5.7
+    brew services stop mysql${HBL_MYSQL_VERSION}
 
     killall -9 mysql
     killall -9 mysqld
@@ -62,5 +62,5 @@ function unlink_all(){
     brew unlink nginx-full
     brew unlink dnsmasq
     unlink_php
-    brew unlink mysql@5.7
+    brew unlink mysql${HBL_MYSQL_VERSION}
 }

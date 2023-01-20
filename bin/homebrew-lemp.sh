@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Mysql version. Blank by default (uses latest mysql homebrew package)
+# Specify verison with a preceeding @ sign, ie: @5.7
+HBL_MYSQL_VERSION=
+
+
 # Get the path to this script regardless of where it was executed from
 ENTRY_PATH="$( cd "$(dirname "$0")" ; pwd -P )/$(basename "$0")"
 if [[ -L $ENTRY_PATH ]]; then
