@@ -15,7 +15,7 @@ function start_default(){
     brew services start php@8.1
     brew services start mysql@5.7
 
-    /usr/local/opt/mysql@5.7/bin/mysql.server start
+    ${HBL_PATH_PREFIX}opt/mysql@5.7/bin/mysql.server start
 }
 
 # Stop all php services
@@ -32,7 +32,7 @@ function stop_php(){
 
 # Blindly stops all of the services managed by homebrew lemp
 function stop_all(){
-    /usr/local/opt/mysql@5.7/bin/mysql.server stop
+    ${HBL_PATH_PREFIX}opt/mysql@5.7/bin/mysql.server stop
     nginx -s stop
 
     brew services stop denji/nginx/nginx-full

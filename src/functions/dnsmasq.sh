@@ -19,7 +19,7 @@ function dnsmasq_add() {
     # Remove any previous records for this domain
     dnsmasq_delete $DOMAIN
 
-    echo "address=/.$DOMAIN/$IP" >> "/usr/local/etc/dnsmasq.conf"
+    echo "address=/.$DOMAIN/$IP" >> "${HBL_PATH_PREFIX}/etc/dnsmasq.conf"
 
     # Create the dns resolvers to use with dnsmasq
     sudo mkdir -p /etc/resolver
@@ -38,12 +38,12 @@ function dnsmasq_delete() {
         exit 1;
     fi
 
-    if [[ -f "/usr/local/etc/dnsmasq.conf" ]]; then
-        mv /usr/local/etc/dnsmasq.conf /usr/local/etc/dnsmasq.conf.dnsmasq_remove
+    if [[ -f "${HBL_PATH_PREFIX}/etc/dnsmasq.conf" ]]; then
+        mv ${HBL_PATH_PREFIX}/etc/dnsmasq.conf ${HBL_PATH_PREFIX}/etc/dnsmasq.conf.dnsmasq_remove
         sed -e "/.$DOMAIN/d" \
         -e "/^[[:space:]]*$/d" \
-        /usr/local/etc/dnsmasq.conf.dnsmasq_remove > /usr/local/etc/dnsmasq.conf
-        rm -f /usr/local/etc/dnsmasq.conf.dnsmasq_remove
+        ${HBL_PATH_PREFIX}/etc/dnsmasq.conf.dnsmasq_remove > ${HBL_PATH_PREFIX}/etc/dnsmasq.conf
+        rm -f ${HBL_PATH_PREFIX}/etc/dnsmasq.conf.dnsmasq_remove
     fi
 
     # Remove the resolver
